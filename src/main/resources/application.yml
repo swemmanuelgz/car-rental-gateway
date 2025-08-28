@@ -14,7 +14,23 @@ spring:
                 - Path=/api/user/**
               filters:
                 - AddResponseHeader=X-Powered-By,Spring Cloud Gateway
+            - id: cars-service
+              uri: ${CARS_SERVICE_URL:http://localhost:8084}
+              predicates:
+                - Path=/api/cars/**
+              filters:
+                - AddResponseHeader=X-Powered-By,Spring Cloud Gateway
+            - id: resources-service
+              uri: ${RESOURCES_SERVICE_URL:http://localhost:8083}
+              predicates:
+                - Path=/api/resources/**
+              filters:
+                - AddResponseHeader=X-Powered-By,Spring Cloud Gateway
 
+# Desactivar Eureka
+eureka:
+  client:
+    enabled: false
 
 logging:
   level:
