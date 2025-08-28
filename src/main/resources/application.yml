@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: car-rental-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: users-service
+              uri: ${USERS_SERVICE_URL:http://localhost:8082}
+              predicates:
+                - Path=/api/user/**
+              filters:
+                - AddResponseHeader=X-Powered-By,Spring Cloud Gateway
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.route: DEBUG
+    org.springframework.cloud.gateway.handler: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+    reactor.netty: DEBUG
